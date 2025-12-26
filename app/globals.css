@@ -1,26 +1,179 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #05060a;
+}
+
+/* ---------- Background ---------- */
+.bg-dots {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(120, 90, 255, 0.18), transparent 55%),
+    radial-gradient(circle at 15% 20%, rgba(0, 220, 255, 0.10), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(255, 0, 170, 0.10), transparent 45%),
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: auto, auto, auto, 26px 26px;
+  background-position: center, center, center, 0 0;
+  mask-image: radial-gradient(circle at 50% 20%, black 40%, transparent 75%);
+  opacity: 0.9;
+}
+
+.bg-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 10%, transparent 30%, rgba(0, 0, 0, 0.65) 78%);
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  .card {
+    @apply relative rounded-3xl border backdrop-blur-xl;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+  }
+
+  .card-pad {
+    @apply p-7 md:p-9;
+  }
+
+  .muted {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-medium transition;
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+
+  .btn-primary {
+    @apply bg-white text-black;
+  }
+
+  .btn-primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-ghost {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .chip {
+    @apply rounded-full border px-3 py-1 text-xs;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .section-title {
+    @apply mt-14 mb-4 text-sm font-semibold uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.60);
+  }
+
+  .dock {
+    @apply fixed left-5 top-1/2 z-30 hidden -translate-y-1/2 rounded-2xl border p-2 backdrop-blur-xl md:block;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .dock-btn {
+    @apply relative flex h-11 w-11 items-center justify-center rounded-2xl transition;
+    color: rgba(255, 255, 255, 0.70);
+  }
+
+  .dock-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .searchbar {
+    @apply flex items-center gap-3 rounded-2xl border px-5 py-4;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(0, 0, 0, 0.20);
+  }
+
+  .search-ico {
+    @apply grid place-items-center;
+  }
+
+  .kbd {
+    @apply grid h-9 w-9 place-items-center rounded-full border text-sm;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .open-pill {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(0, 0, 0, 0.30);
+    color: rgba(255, 255, 255, 0.78);
+    letter-spacing: 0.12em;
+  }
+
+  .open-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 999px;
+    background: #34d399;
+    /* emerald-ish */
+  }
+
+  .globe-box {
+    @apply grid h-12 w-12 place-items-center rounded-2xl border;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .arrow-box {
+    @apply grid h-10 w-10 place-items-center rounded-2xl border text-sm;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .arrow-box:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .social-ico {
+    @apply grid h-10 w-10 place-items-center rounded-2xl border transition;
+    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .social-ico:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.95);
+  }
 }
